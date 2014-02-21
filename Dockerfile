@@ -1,18 +1,24 @@
 # Base Ubuntu 12.04 Image
 # Nginx, php5, composer, mysql
-# outrunthewolf
+# outrunthewolf/shalstvedt
 
 # Base Docker File
 FROM ubuntu:precise
 
 # Maintainer
-MAINTAINER outrunthewolf
+MAINTAINER shalstvedt
 
 # Check we've got the lastest distr
 RUN echo "deb http://archive.ubuntu.com/ubuntu precise main universe" > /etc/apt/sources.list
 
 # Update the box
 RUN apt-get update
+
+# Add new PHP repo
+RUN apt-get install -y python-software-properties
+RUN add-apt-repository ppa:ondrej/php5
+RUN apt-get update
+RUN apt-get upgrade
 
 # Install any programs needed, including composer
 RUN apt-get install -y git-core php5 php5-fpm php5-cgi php5-cli spawn-fcgi curl php5-curl php5-mcrypt nano htop openssh-server gcc libpcre3 libpcre3-dev libssl-dev make php5-mysql mysql-server
